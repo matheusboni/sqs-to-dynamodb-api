@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  context-path: /sqs-to-dynamodb-api
+
+spring:
+  application:
+    name: sqs-to-dynamodb-api
+  zipkin:
+    enabled: false
+
+amazon:
+  accessKey:
+  secretKey:
+
+  queues:
+    payment-queue: 'aws-sqs://payment-queue?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10'
+
+  sqs:
+    host: 'sqs.sa-east-1.amazonaws.com'
+    port: 80
+    region: 'SA_EAST_1'
+    maxConnection: 200
+    maxConnectionRenew: 200
+
+  dynamodb:
+    endpoint: 'http://dynamodb.sa-east-1.amazonaws.com'
+    region: 'SA_EAST_1'
+    pool:
+      max-connections: 50
+      max-idle: 60000
+      ttl: -1
+      validate-time: 5000
